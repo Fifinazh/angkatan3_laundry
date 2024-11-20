@@ -95,10 +95,27 @@ if (isset($_GET['delete'])) {
                                                         <td><?php echo $rowTr['order_code'] ?></td>
                                                         <td><?php echo $rowTr['customer_name'] ?></td>
                                                         <td><?php echo date('d-m-Y', strtotime($rowTr['order_date'])) ?></td>
-                                                        <td><?php echo $rowTr['status'] ?></td>
                                                         <td>
-                                                            <a href="tambah-transaksi.php?print=<?php echo $rowTr['id'] ?>" class="btn btn-success btn-sm">
-                                                                <span class="tf-icon bx bx-print"></span>
+                                                            <?php
+                                                            switch ($rowTr['order_status']) {
+                                                                case '1':
+                                                                    $badge = "<span class='badge bg-primary'>Sudah dikembalikan</span>";
+                                                                    break;
+
+                                                                default:
+                                                                    $badge = "<span class='badge bg-warning'>Baru</span>";
+                                                                    break;
+                                                            }
+
+                                                            echo $badge;
+                                                            ?>
+                                                        </td>
+                                                        <td>
+                                                            <a href="tambah-transaksi.php?detail=<?php echo $rowTr['id'] ?>" class="btn btn-primary btn-sm">
+                                                                <span class="tf-icon bx bx-show"></span>
+                                                            </a>
+                                                            <a target="_blank" href="print.php?id=<?php echo $rowTr['id'] ?>" class="btn btn-success btn-sm">
+                                                                <span class="tf-icon bx bx-printer"></span>
                                                             </a>
                                                             <a onclick="return confirm('Apakah anda yakin akan menghapus data ini??')" href="transaksi.php?delete=<?php echo $rowTr['id'] ?>" class="btn btn-danger btn-sm">
                                                                 <span class="tf-icon bx bx-trash"></span>
